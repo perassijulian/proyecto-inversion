@@ -1,0 +1,30 @@
+// prisma/schema.prisma
+// prisma/schema.prisma
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Project {
+  id                  String   @id @default(cuid())
+  nombreProyecto      String
+  puntajeFinal        String
+  rentabilidad        String
+  riesgo              String
+  impactoComunitario  String
+  viabilidadOperacional String
+  tiempoRecuperacion  String
+  createdAt           DateTime @default(now())
+  userId              String
+  user                User     @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id                 String     @id @default(cuid())
+  proyectosEvaluados Project[]
+}
