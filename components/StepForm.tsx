@@ -2,7 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { steps } from "@/lib/steps";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useEvaluationStore } from "@/lib/store/evaluationStore";
+import type { QuestionKey } from "@/lib/store/evaluationStore";
 
 type Props = {
   stepSlug: (typeof steps)[number];
@@ -12,9 +14,20 @@ type Props = {
 
 export default function StepForm({ stepSlug, question, options }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
+  const { setAnswer } = useEvaluationStore();
   const router = useRouter();
 
+  useEffect(() => {
+    // Opcional: reiniciar selección al cambiar de paso
+    setSelected(null);
+  }, [stepSlug]);
+
   const handleNext = () => {
+    if (!selected) return;
+
+    // Guardamos la respuesta en el estado global
+    setAnswer(stepSlug as QuestionKey, selected);
+
     const currentIndex = steps.indexOf(stepSlug);
     const nextStep = steps[currentIndex + 1];
 

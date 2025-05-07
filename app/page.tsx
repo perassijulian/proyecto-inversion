@@ -10,7 +10,7 @@ export default function Home() {
         el riesgo de cada proyecto.
       </p>
       <a
-        href="/evaluacion"
+        href="/evaluacion/rentabilidad"
         className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
       >
         Comenzar Evaluación

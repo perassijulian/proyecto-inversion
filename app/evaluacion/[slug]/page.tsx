@@ -7,6 +7,9 @@ type Params = { slug: string };
 export default function StepPage({ params }: { params: Params }) {
   const { slug } = params;
 
+  console.log("slug", slug);
+  console.log("steps", steps);
+
   if (!steps.includes(slug as any)) notFound();
 
   const stepData = questions[slug as keyof typeof questions];
